@@ -8,7 +8,7 @@ $mysql_database = 'database';
 mConnect();
 ```
 
-## Simple inserts
+Simple inserts
 ```php
 $insert = array(
   'articleid' => 1234,
@@ -19,7 +19,7 @@ $insert = array(
 mInsert('comments',$insert);
 ```
 
-## Easy updates
+Easy updates
 ```php
 $update = array(
   'id' => '1234',
@@ -28,7 +28,7 @@ $update = array(
 mUpdate('articles','id',$update);
 ```
 
-## Safe queries
+Safe queries
 ```php
 $articles = mSelectRows(
   'SELECT * FROM articles '.
