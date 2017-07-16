@@ -49,7 +49,7 @@ function mInsert ($table, $data) {
            '('.substr($names ,0,strlen($names )-1).') values '.
            '('.substr($values,0,strlen($values)-1).')';
   mysqli_query($mysql_link,$query);
-  return mysqli_insert_id();
+  return mysqli_insert_id($mysql_link);
 }
 
 
