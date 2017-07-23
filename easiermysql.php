@@ -12,7 +12,7 @@
   Written by Johannes Ridderstedt (johannesl@46elks.com)
   Released to the public domain.
 
-  Last update 2017-07-16.
+  Last update 2017-07-23.
 
 */
 
@@ -92,7 +92,7 @@ function mUpdate ($table, $primary, $data) {
   $query = 'UPDATE '.$table.' SET '.substr($set,0,strlen($set)-1).
            ' WHERE '.substr($where,0,strlen($where)-5);
   $res = mysqli_query($mysql_link,$query);
-  return mysqli_affected_rows();
+  return mysqli_affected_rows($mysql_link);
 }
 
 
@@ -187,7 +187,7 @@ function mQuery ($q, $escapelist = null) {
 function mDelete ($q, $escapelist = null) {
   global $mysql_link;
   $res = mysqli_query( mEscape($mysql_link,$q,$escapelist) );
-  return mysqli_affected_rows();
+  return mysqli_affected_rows($mysql_link);
 }
 
 function mEscape ($q, $escapelist = null) {
