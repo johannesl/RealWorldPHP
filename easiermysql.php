@@ -202,6 +202,11 @@ function mEscape ($q, $escapelist = null) {
   return implode('',$parts);
 }
 
+function mError () {
+  global $mysql_link;
+  return array( mysqli_errno($mysql_link), mysqli_error($mysql_link) );
+}
+
 /*
   A simple yet fully real-world usable and battle tested MySQL API. If you
   need different behavior or extra features, change the code to your needs.
