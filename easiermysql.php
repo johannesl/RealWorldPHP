@@ -190,6 +190,11 @@ function mDelete ($q, $escapelist = null) {
   return mysqli_affected_rows($mysql_link);
 }
 
+function mEscapeValue ($s) {
+  global $mysql_link;
+  return '"'. mysqli_escape_string( $mysql_link, $s ) .'"';
+}
+
 function mEscape ($q, $escapelist = null) {
   global $mysql_link;
   while ($i = strpos($q,'@')) {
