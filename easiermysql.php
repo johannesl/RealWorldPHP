@@ -12,7 +12,7 @@
   Written by Johannes Ridderstedt (johannesl@46elks.com)
   Released to the public domain.
 
-  Last update 2017-07-23.
+  Last update 2018-01-17.
 
 */
 
@@ -97,6 +97,38 @@ function mUpdate ($table, $primary, $data) {
 
 
 /*=============================================================
+  Return an iterator for all rows in a MySQL result.
+*/
+function res2iterator($res) {
+  class mIterator implements Iterator {
+    public function __construct($res) {
+      $this->res = $res;
+    }
+    public function valid () {
+      if ($this->row) return true;
+      return false;
+    }
+    public function current () {
+      return $this->row;
+    }
+    public function key () {
+      return $this->key;
+    }
+    public function next () {
+      $this->row = mysqli_fetch_assoc($this->res);
+      $this->key++;
+    }
+    public function rewind () {
+      $this->key = -1;
+      $this->next();
+    }
+  }
+  if(!$res) return array();
+  return new mIterator($res);
+}
+
+
+/*=============================================================
   Return an array of all rows in a MySQL result.
 */
 function res2array($res) {
@@ -161,6 +193,18 @@ function mSelectRows ($q, $escapelist = null) {
 
   return res2array($res);
 }
+
+/*
+  Same as mSelectRows but uses an iterator instead (for huge result sets).
+*/
+function mSelectManyRows ($q, $escapelist = null) {
+  global $mysql_link;
+  $res = mysqli_query( $mysql_link, mEscape($q,$escapelist) );
+  if (!$res || $res->num_rows <= 0) return null;
+
+  return res2iterator($res);
+}
+
 
 /*
   Select a single row.
