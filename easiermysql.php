@@ -12,7 +12,7 @@
   Written by Johannes Ridderstedt (johannesl@46elks.com)
   Released to the public domain.
 
-  Last update 2018-01-17.
+  Last update 2018-02-01.
 
 */
 
@@ -100,31 +100,31 @@ function mUpdate ($table, $primary, $data) {
   Return an iterator for all rows in a MySQL result.
 */
 function res2iterator($res) {
-  class mIterator implements Iterator {
-    public function __construct($res) {
-      $this->res = $res;
-    }
-    public function valid () {
-      if ($this->row) return true;
-      return false;
-    }
-    public function current () {
-      return $this->row;
-    }
-    public function key () {
-      return $this->key;
-    }
-    public function next () {
-      $this->row = mysqli_fetch_assoc($this->res);
-      $this->key++;
-    }
-    public function rewind () {
-      $this->key = -1;
-      $this->next();
-    }
-  }
   if(!$res) return array();
   return new mIterator($res);
+}
+class mIterator implements Iterator {
+  public function __construct($res) {
+    $this->res = $res;
+  }
+  public function valid () {
+    if ($this->row) return true;
+    return false;
+  }
+  public function current () {
+    return $this->row;
+  }
+  public function key () {
+    return $this->key;
+  }
+  public function next () {
+    $this->row = mysqli_fetch_assoc($this->res);
+    $this->key++;
+  }
+  public function rewind () {
+    $this->key = -1;
+    $this->next();
+  }
 }
 
 
