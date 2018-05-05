@@ -12,7 +12,7 @@
   Written by Johannes Ridderstedt (johannesl@46elks.com)
   Released to the public domain.
 
-  Last update 2018-02-01.
+  Last update 2018-05-05.
 
 */
 
@@ -45,7 +45,7 @@ function mInsert ($table, $data) {
     }
   }
   // INSERT INTO table (a,b,c) values (1,2,3)
-  $query = 'INSERT INTO `'.mysqli_escape_string($mysql_link,$table).'` '.
+  $query = 'INSERT INTO '.$table.' '.
            '('.substr($names ,0,strlen($names )-1).') values '.
            '('.substr($values,0,strlen($values)-1).')';
   mysqli_query($mysql_link,$query);
