@@ -12,7 +12,7 @@
   Written by Johannes Ridderstedt (johannesl@46elks.com)
   Released to the public domain.
 
-  Last update 2018-05-05.
+  Last update 2018-11-26.
 
 */
 
@@ -170,7 +170,9 @@ function mConnect() {
       $GLOBALS['mysql_database']
     );
   
-  mysqli_set_charset($mysql_link,'utf8');
+  if ($mysql_link)
+    mysqli_set_charset($mysql_link,'utf8');
+  return $mysql_link;
 }
 
 function mClose() {
