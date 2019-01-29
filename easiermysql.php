@@ -81,10 +81,10 @@ function mUpdate ($table, $primary, $data) {
   }
   $set = '';
   foreach ($data as $key => $value) {
-    foreach ($primary as $k) {
-      if($key != $k) continue; }
     if (substr($key,0,1) == '@')
       $set .= substr($key,1).'='.$value.',';
+    else if (is_null($value))
+      $set .= $key.'=NULL,';
     else
       $set .= $key.'="'.mysqli_escape_string($mysql_link,$value).'",';
   }
