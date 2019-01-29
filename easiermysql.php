@@ -12,7 +12,7 @@
   Written by Johannes Ridderstedt (johannesl@46elks.com)
   Released to the public domain.
 
-  Last update 2018-11-26.
+  Last update 2019-01-29.
 
 */
 
@@ -132,7 +132,8 @@ class mIterator implements Iterator {
   Return an array of all rows in a MySQL result.
 */
 function res2array($res) {
-  if(!$res) return array();
+  if(!$res || $res->num_rows == 0)
+    return array();
   while($row=mysqli_fetch_assoc($res)){
     $array[] = $row;
   }
@@ -144,7 +145,8 @@ function res2array($res) {
   Return a keyed array of all rows in a MySQL result.
 */
 function res2keyarray($res,$key) {
-  if(!$res) return array();
+  if(!$res || $res->num_rows == 0)
+    return array();
   while($row=mysqli_fetch_assoc($res)){
     $array[$row[$key]] = $row;
   }
@@ -191,7 +193,7 @@ function mClose() {
 function mSelectRows ($q, $escapelist = null) {
   global $mysql_link;
   $res = mysqli_query( $mysql_link, mEscape($q,$escapelist) );
-  if (!$res || $res->num_rows <= 0) return null;
+  if (!$res) return null;
 
   return res2array($res);
 }
@@ -202,7 +204,7 @@ function mSelectRows ($q, $escapelist = null) {
 function mSelectManyRows ($q, $escapelist = null) {
   global $mysql_link;
   $res = mysqli_query( $mysql_link, mEscape($q,$escapelist) );
-  if (!$res || $res->num_rows <= 0) return null;
+  if (!$res) return null;
 
   return res2iterator($res);
 }
