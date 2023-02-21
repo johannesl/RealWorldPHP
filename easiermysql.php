@@ -12,7 +12,7 @@
   Written by Johannes Ridderstedt (johannesl@46elks.com)
   Released to the public domain.
 
-  Last update 2019-01-29.
+  Last update 2023-02-21.
 
 */
 
@@ -234,7 +234,7 @@ function mQuery ($q, $escapelist = null) {
 */
 function mDelete ($q, $escapelist = null) {
   global $mysql_link;
-  $res = mysqli_query( mEscape($mysql_link,$q,$escapelist) );
+  $res = mysqli_query( $mysql_link, mEscape($q,$escapelist) );
   return mysqli_affected_rows($mysql_link);
 }
 
