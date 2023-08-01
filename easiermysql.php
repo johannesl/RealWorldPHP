@@ -12,7 +12,7 @@
   Written by Johannes Ridderstedt (johannesl@46elks.com)
   Released to the public domain.
 
-  Last update 2023-02-21.
+  Last update 2023-07-31.
 
 */
 
@@ -259,6 +259,9 @@ function mError () {
   global $mysql_link;
   return array( mysqli_errno($mysql_link), mysqli_error($mysql_link) );
 }
+
+/* Don't use the PHP 8.1+ default of exceptions for MySQL errors. */
+mysqli_report( MYSQLI_REPORT_OFF );
 
 /*
   A simple yet fully real-world usable and battle tested MySQL API. If you
